@@ -5,7 +5,8 @@ from models import Book
 
 def main():
     # 1. При СТАРТЕ программы один раз загружаем старые книги с диска через storage
-    library = storage.storage([])
+
+    library = [Book.from_dict(item) for item in storage.storage([])]
 
     print("=== СИСТЕМА УЧЕТА КНИГ ===\n"
           "== Список команд ==:\n"
