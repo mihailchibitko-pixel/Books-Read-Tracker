@@ -39,3 +39,5 @@ def storage(new_library):
 
     with open("BooksData.json", "w", encoding="utf-8") as file:
         json.dump(library, file, ensure_ascii=False, indent=4)
+
+    return library

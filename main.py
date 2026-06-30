@@ -1,6 +1,7 @@
 import storage
 import stats
 from models import Book
+from datetime import datetime
 
 
 def main():
@@ -27,9 +28,20 @@ def main():
             title = input("Введите название книги: ").strip()
             author = input("Введите автора книги: ").strip()
             rating = input("Введите вашу оценку (1-5): ").strip()
-            date = input("Введите дату прочтения: ").strip()
 
-            # Создаем живой объект книги
+            # Бесконечный цикл: пока пользователь не введет дату правильно, мы его не выпустим
+            while True:
+                date_input = input("Введите дату прочтения (ДД.ММ.ГГГГ): ").strip()
+                try:
+                    # Пытаемся проверить строку на соответствие шаблону ДД.ММ.ГГГГ
+                    datetime.strptime(date_input, "%d.%m.%Y")
+                    date = date_input  # Если формат верный, сохраняем дату
+                    break              # Выходим из цикла валидации даты
+                except ValueError:
+                    # Если пользователь ошибся в цифрах или точках, ловим ошибку
+                    print("Ошибка: Неверный формат! Используйте шаблон ДД.ММ.ГГГГ (например, 15.04.2026).")
+
+            # Создаем объект книги
             new_book = Book(title, author, rating, date)
             # Просто кладем его в наш рабочий список в памяти
             library.append(new_book)
