@@ -6,8 +6,8 @@ from datetime import datetime
 
 def main():
     # 1. При СТАРТЕ программы один раз загружаем старые книги с диска через storage
-
     library = [Book.from_dict(item) for item in storage.storage([])]
+    new_books = [] # Сюда мы записываем новые книги
 
     print("=== СИСТЕМА УЧЕТА КНИГ ===\n"
           "== Список команд ==:\n"
@@ -45,6 +45,7 @@ def main():
             new_book = Book(title, author, rating, date)
             # Просто кладем его в наш рабочий список в памяти
             library.append(new_book)
+            new_books.append(new_book)
             print(f"Книга '{title}' успешно добавлена в список!")
 
         # КОМАНДА 2: ПОКАЗ ВСЕХ КНИГ
@@ -75,7 +76,7 @@ def main():
         # КОМАНДА 4: ВЫХОД И СОХРАНЕНИЕ В JSON
         elif choice == 4:
             # Передаем весь наш список объектов в storage для разбора и записи в файл
-            storage.storage(library)
+            storage.storage(new_books)
             break
 
         else:
