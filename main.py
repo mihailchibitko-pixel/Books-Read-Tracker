@@ -2,10 +2,11 @@ import storage
 import stats
 from models import Book
 
+
 def main():
     # 1. При СТАРТЕ программы один раз загружаем старые книги с диска через storage
-    library = storage.storage([], command=1)
-    
+    library = storage.storage([])
+
     print("=== СИСТЕМА УЧЕТА КНИГ ===\n"
           "== Список команд ==:\n"
           "1. Добавить новую книгу\n"
@@ -26,7 +27,7 @@ def main():
             author = input("Введите автора книги: ").strip()
             rating = input("Введите вашу оценку (1-5): ").strip()
             date = input("Введите дату прочтения: ").strip()
-            
+
             # Создаем живой объект книги
             new_book = Book(title, author, rating, date)
             # Просто кладем его в наш рабочий список в памяти
@@ -52,7 +53,7 @@ def main():
                 # Вызываем функции из нашего активированного модуля stats.py
                 avg = stats.get_average_rating(library)
                 authors = stats.get_author_stats(library)
-                
+
                 print(f"Средняя оценка ваших книг: {avg}")
                 print("Количество книг по авторам:")
                 for author, count in authors.items():
@@ -61,7 +62,7 @@ def main():
         # КОМАНДА 4: ВЫХОД И СОХРАНЕНИЕ В JSON
         elif choice == 4:
             # Передаем весь наш список объектов в storage для разбора и записи в файл
-            storage.storage(library, command=0)
+            storage.storage(library)
             break
 
         else:
